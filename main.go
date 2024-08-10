@@ -20,7 +20,7 @@ func main() {
 
 func initializeToolBar() {
 	l := widgets.NewList()
-	l.Title = "List"
+	l.Title = "Tools"
 	l.Rows = []string{
 		"[0] Base64 Encoder",
 		"[1] Base64 Decoder",
@@ -90,32 +90,24 @@ func handleBase64(mode string) {
 	ui.Render(p)
 
 	uiEvents := ui.PollEvents()
-	hasError := false
-
 	for {
 		e := <-uiEvents
-
+		defaultState(p, mode)
 		switch e.ID {
 		case "<Enter>":
-			if hasError {
-				resetParagraph(p)
-				hasError = false
-				continue
-			}
-
 			if mode == "encode" {
 				handleEncoding(p)
 			} else if mode == "decode" {
-				handleDecoding(p, &hasError)
+				handleDecoding(p)
 			}
 			ui.Render(p)
 
 		case "<C-c>":
 			return // Exit the function
-
 		case "<C-v>":
 			pasteFromClipboard(p)
-
+		case "<C-u>":
+			resetParagraph(p)
 		case "<Backspace>":
 			deleteLastCharacter(p)
 
@@ -128,6 +120,16 @@ func handleBase64(mode string) {
 	}
 }
 
+func defaultState(p *widgets.Paragraph, mode string) {
+	if mode == "decode" {
+		p.Title = "Enter Base64 String"
+	} else {
+		p.Title = "Enter String"
+	}
+	p.BorderStyle.Fg = ui.ColorWhite
+	ui.Render(p)
+}
+
 // handleEncoding encodes the text to Base64 and copies it to the clipboard.
 func handleEncoding(p *widgets.Paragraph) {
 	encoded := base64.StdEncoding.EncodeToString([]byte(p.Text))
@@ -138,10 +140,9 @@ func handleEncoding(p *widgets.Paragraph) {
 }
 
 // handleDecoding decodes the Base64 string and handles errors.
-func handleDecoding(p *widgets.Paragraph, hasError *bool) {
+func handleDecoding(p *widgets.Paragraph) {
 	decoded, err := base64.StdEncoding.DecodeString(p.Text)
 	if err != nil {
-		*hasError = true
 		p.Title = "Invalid Base64 string"
 		p.BorderStyle.Fg = ui.ColorRed
 	} else {
