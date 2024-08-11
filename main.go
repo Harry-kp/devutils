@@ -38,7 +38,7 @@ func initializeToolBar() {
 	for {
 		e := <-uiEvents
 		switch e.ID {
-		case "q", "<C-c>":
+		case "q", "<C-c>", "<Escape>":
 			return
 		case "j", "<Down>":
 			if l.SelectedRow < len(l.Rows)-1 {
@@ -68,7 +68,7 @@ func initializeToolBar() {
 			l.ScrollTop()
 		case "G", "<End>":
 			l.ScrollBottom()
-		case "<Enter>":
+		case "<Tab>", "<Enter>":
 			p := widgets.NewParagraph()
 			p.WrapText = true
 			p.SetRect(26, 0, 100, 8)

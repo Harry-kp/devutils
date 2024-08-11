@@ -141,7 +141,7 @@ func deleteLastCharacter(p *widgets.Paragraph) {
 }
 
 func isExitKey(e ui.Event) bool {
-	if e.ID == "<C-c>" {
+	if e.ID == "<C-c>" || e.ID == "q" || e.ID == "<Escape>" {
 		return true
 	}
 	return false

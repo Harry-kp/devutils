@@ -11,6 +11,7 @@ import (
 
 	"github.com/atotto/clipboard"
 	"github.com/gizak/termui/v3/widgets"
+	"gopkg.in/yaml.v2"
 )
 
 // DecodeJWT takes a JWT string and returns the decoded header and payload.
@@ -28,6 +29,27 @@ func DecodeJWT(jwt string) (string, string, error) {
 		return "", "", fmt.Errorf("Failed to decode payload")
 	}
 	return string(headerJSON), string(payloadJSON), nil
+}
+
+func ConvertYamlToJson(yamlStr string) (string, error) {
+	// Convert YAML to a generic map
+	var yamlData map[string]interface{}
+	err := yaml.Unmarshal([]byte(yamlStr), &yamlData)
+	if err != nil {
+		return "", fmt.Errorf("Invalid YAML format")
+	}
+
+	// Convert the map to JSON
+	jsonData, err := json.MarshalIndent(yamlData, "", "  ")
+	if err != nil {
+		return "", fmt.Errorf("Invalid YAML format")
+	}
+
+	pretty_json, err := FormatJSON(string(jsonData))
+	if err != nil {
+		return "", fmt.Errorf("Invalid YAML format")
+	}
+	return pretty_json, nil
 }
 
 func FormatJSON(rawJSON string) (string, error) {
