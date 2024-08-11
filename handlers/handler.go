@@ -12,8 +12,7 @@ func HandleJwtDecoder(p *widgets.Paragraph) {
 	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
-		switch e.ID {
-		case "<Enter>":
+		if e.ID == "<Enter>" {
 			header, payload, err := utils.DecodeJWT(p.Text)
 			if err != nil {
 				p.Title = err.Error()
@@ -25,46 +24,30 @@ func HandleJwtDecoder(p *widgets.Paragraph) {
 				utils.CopyToClipboard(text)
 				p.Title = "Copied to clipboard!"
 			}
-		case "<C-c>":
-			return // Exit the function
-		case "<C-v>":
-			utils.PasteFromClipboard(p)
-		case "<C-u>":
-			resetParagraph(p)
-		case "<Backspace>":
-			deleteLastCharacter(p)
-		default:
-			if e.Type == ui.KeyboardEvent {
-				p.Text += e.ID
-			}
+		} else if isExitKey(e) {
+			return
+		} else {
+			handleKeyBindings(p, e)
 		}
 		ui.Render(p)
 	}
 }
+
 func HandleBase64Encoding(p *widgets.Paragraph) {
 	ui.Render(p)
 	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
-		switch e.ID {
-		case "<Enter>":
+		if e.ID == "<Enter>" {
 			encoded := utils.EncodeBase64(p.Text)
 			p.Text = encoded
 			p.BorderStyle.Fg = ui.ColorGreen
 			utils.CopyToClipboard(encoded)
 			p.Title = "Copied to clipboard!"
-		case "<C-c>":
-			return // Exit the function
-		case "<C-v>":
-			utils.PasteFromClipboard(p)
-		case "<C-u>":
-			resetParagraph(p)
-		case "<Backspace>":
-			deleteLastCharacter(p)
-		default:
-			if e.Type == ui.KeyboardEvent {
-				p.Text += e.ID
-			}
+		} else if isExitKey(e) {
+			return
+		} else {
+			handleKeyBindings(p, e)
 		}
 		ui.Render(p)
 	}
@@ -75,8 +58,7 @@ func HandleBase64Decoding(p *widgets.Paragraph) {
 	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
-		switch e.ID {
-		case "<Enter>":
+		if e.ID == "<Enter>" {
 			decoded, err := utils.DecodeBase64(p.Text)
 			if err == nil {
 				p.BorderStyle.Fg = ui.ColorGreen
@@ -87,18 +69,10 @@ func HandleBase64Decoding(p *widgets.Paragraph) {
 				p.Title = "Invalid base64 string"
 				p.BorderStyle.Fg = ui.ColorRed
 			}
-		case "<C-c>":
-			return // Exit the function
-		case "<C-v>":
-			utils.PasteFromClipboard(p)
-		case "<C-u>":
-			resetParagraph(p)
-		case "<Backspace>":
-			deleteLastCharacter(p)
-		default:
-			if e.Type == ui.KeyboardEvent {
-				p.Text += e.ID
-			}
+		} else if isExitKey(e) {
+			return
+		} else {
+			handleKeyBindings(p, e)
 		}
 		ui.Render(p)
 	}
@@ -109,8 +83,7 @@ func HandleJsonFormatter(p *widgets.Paragraph) {
 	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
-		switch e.ID {
-		case "<Enter>":
+		if e.ID == "<Enter>" {
 			formatted_text, err := utils.FormatJSON(p.Text)
 			if err != nil {
 				p.BorderStyle.Fg = ui.ColorRed
@@ -121,20 +94,29 @@ func HandleJsonFormatter(p *widgets.Paragraph) {
 				utils.CopyToClipboard(formatted_text)
 				p.Title = "Copied to clipboard!"
 			}
-		case "<C-c>":
-			return // Exit the function
-		case "<C-v>":
-			utils.PasteFromClipboard(p)
-		case "<C-u>":
-			resetParagraph(p)
-		case "<Backspace>":
-			deleteLastCharacter(p)
-		default:
-			if e.Type == ui.KeyboardEvent {
-				p.Text += e.ID
-			}
+		} else if isExitKey(e) {
+			return
+		} else {
+			handleKeyBindings(p, e)
 		}
 		ui.Render(p)
+	}
+}
+
+func handleKeyBindings(p *widgets.Paragraph, e ui.Event) {
+	switch e.ID {
+	case "<C-v>":
+		utils.PasteFromClipboard(p)
+	case "<C-u>":
+		resetParagraph(p)
+	case "<Backspace>":
+		deleteLastCharacter(p)
+	case "<Space>":
+		p.Text += " "
+	default:
+		if e.Type == ui.KeyboardEvent {
+			p.Text += e.ID
+		}
 	}
 }
 
@@ -156,4 +138,11 @@ func deleteLastCharacter(p *widgets.Paragraph) {
 	if len(p.Text) > 0 {
 		p.Text = p.Text[:len(p.Text)-1]
 	}
+}
+
+func isExitKey(e ui.Event) bool {
+	if e.ID == "<C-c>" {
+		return true
+	}
+	return false
 }
