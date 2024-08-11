@@ -19,7 +19,7 @@ func main() {
 
 func initializeToolBar() {
 	l := widgets.NewList()
-	l.Title = "Tools"
+	l.Title = " Tools"
 	l.Rows = []string{
 		"[0] Base64 Encoder",
 		"[1] Base64 Decoder",
@@ -41,9 +41,17 @@ func initializeToolBar() {
 		case "q", "<C-c>":
 			return
 		case "j", "<Down>":
-			l.ScrollDown()
+			if l.SelectedRow < len(l.Rows)-1 {
+				l.ScrollDown()
+			} else {
+				l.ScrollTop()
+			}
 		case "k", "<Up>":
-			l.ScrollUp()
+			if l.SelectedRow > 0 {
+				l.ScrollUp()
+			} else {
+				l.ScrollBottom()
+			}
 		case "<C-d>":
 			l.ScrollHalfPageDown()
 		case "<C-u>":
@@ -66,16 +74,16 @@ func initializeToolBar() {
 			p.SetRect(26, 0, 100, 8)
 			switch l.SelectedRow {
 			case 0:
-				p.Title = "Enter text.."
+				p.Title = " Enter text"
 				handlers.HandleBase64Encoding(p)
 			case 1:
-				p.Title = "Enter base64.."
+				p.Title = " Enter base64.."
 				handlers.HandleBase64Decoding(p)
 			case 2:
-				p.Title = "Enter JSON.."
+				p.Title = " Enter JSON.."
 				handlers.HandleJsonFormatter(p)
 			case 3:
-				p.Title = "Enter JWT.."
+				p.Title = " Enter JWT.."
 				handlers.HandleJwtDecoder(p)
 			}
 		}

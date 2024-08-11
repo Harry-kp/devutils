@@ -22,7 +22,7 @@ func HandleJwtDecoder(p *widgets.Paragraph) {
 				p.Text = text
 				p.BorderStyle.Fg = ui.ColorGreen
 				utils.CopyToClipboard(text)
-				p.Title = "Copied to clipboard!"
+				p.Title = " Copied to clipboard!"
 			}
 		} else if isExitKey(e) {
 			return
@@ -43,7 +43,7 @@ func HandleBase64Encoding(p *widgets.Paragraph) {
 			p.Text = encoded
 			p.BorderStyle.Fg = ui.ColorGreen
 			utils.CopyToClipboard(encoded)
-			p.Title = "Copied to clipboard!"
+			p.Title = " Copied to clipboard!"
 		} else if isExitKey(e) {
 			return
 		} else {
@@ -64,9 +64,9 @@ func HandleBase64Decoding(p *widgets.Paragraph) {
 				p.BorderStyle.Fg = ui.ColorGreen
 				utils.CopyToClipboard(decoded)
 				p.Text = decoded
-				p.Title = "Copied to clipboard!"
+				p.Title = " Copied to clipboard!"
 			} else {
-				p.Title = "Invalid base64 string"
+				p.Title = " Invalid base64 string"
 				p.BorderStyle.Fg = ui.ColorRed
 			}
 		} else if isExitKey(e) {
@@ -92,7 +92,7 @@ func HandleJsonFormatter(p *widgets.Paragraph) {
 				p.Text = formatted_text
 				p.BorderStyle.Fg = ui.ColorGreen
 				utils.CopyToClipboard(formatted_text)
-				p.Title = "Copied to clipboard!"
+				p.Title = " Copied to clipboard!"
 			}
 		} else if isExitKey(e) {
 			return
