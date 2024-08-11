@@ -1,80 +1,82 @@
-# devutils
+# 🚀 DevUtils: Your Go-To CLI Swiss Army Knife for Developers! 🧰
 
-`devutils` is a command-line tool designed to help developers perform common tasks efficiently. The tool features a terminal-based user interface (TUI) that provides quick access to various utilities, such as Base64 encoding/decoding, JSON formatting, and JWT decoding.
+DevUtils is a blazingly fast and intuitive command-line tool designed to streamline your daily development workflow. ⚡️ Say goodbye to tedious tasks and hello to boosted productivity! 💪
 
-## Features
+## ✨ Features
 
-- **Base64 Encoder**: Easily encode text into Base64 format.
-- **Base64 Decoder**: Decode Base64 strings back to their original text.
-- **JSON Formatter**: Format JSON strings to improve readability.
-- **JWT Decoder**: Decode JSON Web Tokens (JWT) to view their header and payload.
+DevUtils packs a punch with a rich set of features accessible through a sleek terminal-based user interface (TUI).
 
-## Installation
+- **Base64 Encoder/Decoder:** Effortlessly encode and decode text to and from Base64. 🔐
+  - **Encode:** Transform your text into Base64 with a single command.
+  - **Decode:** Retrieve the original text from a Base64 string.
+- **JSON Formatter:** Beautify and prettify your JSON data for enhanced readability. 💅
+  - **Input:** Paste your messy JSON.
+  - **Output:** Get perfectly formatted JSON, ready for inspection.
+- **JWT Decoder:** Unveil the secrets hidden within your JSON Web Tokens (JWTs). 🕵️‍♀️
+  - **Decode:** Extract the header and payload information from your JWTs.
 
-First, ensure you have Go installed on your machine. Then, clone the repository and build the tool:
+## ⚡️ Installation
 
-```bash
-git clone https://github.com/yourusername/devutils.git
-cd devutils
-go build -o devutils
-```
+Getting DevUtils up and running is a breeze!
 
-## Usage
+1. **Prerequisites:** Make sure you have Go installed on your system.
+2. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/harrykp/devutils.git
+   ```
+3. **Build the Tool:**
+   ```bash
+   cd devutils
+   go build -o devutils
+   ```
 
-Run the tool directly from your terminal:
+## 🕹️ Usage
+
+Launch DevUtils directly from your terminal:
 
 ```bash
 ./devutils
 ```
 
-### Navigating the Interface
+You'll be greeted with an intuitive TUI.
 
-- Use the **arrow keys** (`Up` and `Down`) to navigate through the list of available tools.
-- Press **Enter** to select a tool.
-- Use **Ctrl+C** or `q` to exit or go to previous menu at any time.
+![DevUtils TUI](devutils-tui.gif) _(Example GIF - Replace with an actual GIF of your TUI in action)_
 
-### Base64 Encoder
+### 🧭 Navigation
 
-1. Select **Base64 Encoder** from the list.
-2. Enter the text you want to encode.
-3. The encoded string will be displayed and automatically copied to your clipboard.
+- **Arrow Keys (Up/Down):** Browse through the available tools.
+- **Enter:** Select the tool you want to use.
+- **Ctrl+C or q:** Exit the tool or return to the main menu.
 
-### Base64 Decoder
+### 🧰 Using the Tools
 
-1. Select **Base64 Decoder** from the list.
-2. Enter the Base64 string you want to decode.
-3. The decoded text will be displayed and automatically copied to your clipboard.
+Each tool is designed for simplicity. Here's how to use them:
 
-### JSON Formatter
+1. **Select the Tool:** Use the arrow keys and Enter to choose your desired tool.
+2. **Input Your Data:** Enter the text, JSON, or JWT you want to process.
+3. **Press Enter:** DevUtils will work its magic and display the results.
+4. **Copy to Clipboard (Automatic):** The output is automatically copied to your clipboard for your convenience!
 
-1. Select **JSON Formatter** from the list.
-2. Enter the JSON string you want to format.
-3. The formatted JSON will be displayed and automatically copied to your clipboard.
+## 🧑‍💻 Development
 
-### JWT Decoder
+Want to contribute or add new features? We welcome contributions!
 
-1. Select **JWT Decoder** from the list.
-2. Enter the JWT string you want to decode.
-3. The decoded header and payload will be displayed.
+### 🌱 Adding New Features
 
-## Development
+1. **Create a Handler:** Add a new handler function in `handlers.go`.
+2. **Update the Toolbar:** Integrate your new function into the toolbar in `main.go`.
+3. **Implement Logic (if needed):** Add any necessary utility functions in `utils.go`.
 
-### Adding New Features
+### 🔨 Building the Project
 
-To add a new feature:
-
-1. Create a new handler function in `handlers.go`.
-2. Add the function to the toolbar in `main.go`.
-3. Implement the logic in `utils.go` if necessary.
-
-### Building the Project
-
-After making changes, you can rebuild the project with:
+After making changes, rebuild the project:
 
 ```bash
 go build -o devutils
 ```
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License.
+
+---
