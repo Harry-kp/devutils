@@ -30,7 +30,7 @@ func initializeToolBar() {
 	l.SelectedRowStyle = ui.NewStyle(ui.ColorYellow)
 	l.WrapText = false
 	l.SetRect(0, 0, 25, 8)
-
+	l.BorderStyle.Fg = ui.ColorYellow
 	ui.Render(l)
 
 	previousKey := ""
@@ -69,6 +69,8 @@ func initializeToolBar() {
 		case "G", "<End>":
 			l.ScrollBottom()
 		case "<Tab>", "<Enter>":
+			l.BorderStyle.Fg = ui.ColorWhite
+			ui.Render(l)
 			p := widgets.NewParagraph()
 			p.WrapText = true
 			p.SetRect(26, 0, 100, 8)
@@ -84,12 +86,13 @@ func initializeToolBar() {
 				handlers.HandleJwtDecoder(uiEvents)
 			}
 		}
-
+		ui.Clear()
+		ui.Render(l)
 		if previousKey == "g" {
 			previousKey = ""
 		} else {
 			previousKey = e.ID
 		}
-		ui.Render(l)
+		l.BorderStyle.Fg = ui.ColorYellow
 	}
 }
