@@ -18,6 +18,7 @@ func createParagraph(title string) *widgets.Paragraph {
 
 func HandleJwtDecoder(uiEvents <-chan ui.Event) {
 	p := createParagraph(" Enter JWT")
+	ui.Render(p)
 	for {
 		e := <-uiEvents
 		if e.ID == "<Enter>" {
@@ -88,6 +89,7 @@ func HandleBase64Decoding(uiEvents <-chan ui.Event) {
 
 func HandleJsonFormatter(uiEvents <-chan ui.Event) {
 	p := createParagraph(" Enter JSON")
+	ui.Render(p)
 	for {
 		e := <-uiEvents
 		if e.ID == "<Enter>" {
