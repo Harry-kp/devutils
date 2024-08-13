@@ -72,19 +72,16 @@ func initializeToolBar() {
 			p := widgets.NewParagraph()
 			p.WrapText = true
 			p.SetRect(26, 0, 100, 8)
+			p.BorderStyle.Fg = ui.ColorYellow
 			switch l.SelectedRow {
 			case 0:
-				p.Title = " Enter text"
-				handlers.HandleBase64Encoding(p)
+				handlers.HandleBase64Encoding(uiEvents)
 			case 1:
-				p.Title = " Enter base64.."
-				handlers.HandleBase64Decoding(p)
+				handlers.HandleBase64Decoding(uiEvents)
 			case 2:
-				p.Title = " Enter JSON.."
-				handlers.HandleJsonFormatter(p)
+				handlers.HandleJsonFormatter(uiEvents)
 			case 3:
-				p.Title = " Enter JWT.."
-				handlers.HandleJwtDecoder(p)
+				handlers.HandleJwtDecoder(uiEvents)
 			}
 		}
 

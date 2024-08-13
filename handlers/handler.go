@@ -7,9 +7,17 @@ import (
 	"github.com/harrykp/devutils/utils"
 )
 
-func HandleJwtDecoder(p *widgets.Paragraph) {
-	ui.Render(p)
-	uiEvents := ui.PollEvents()
+func createParagraph(title string) *widgets.Paragraph {
+	p := widgets.NewParagraph()
+	p.WrapText = true
+	p.SetRect(26, 0, 100, 8)
+	p.BorderStyle.Fg = ui.ColorYellow
+	p.Title = title
+	return p
+}
+
+func HandleJwtDecoder(uiEvents <-chan ui.Event) {
+	p := createParagraph(" Enter JWT")
 	for {
 		e := <-uiEvents
 		if e.ID == "<Enter>" {
@@ -33,9 +41,9 @@ func HandleJwtDecoder(p *widgets.Paragraph) {
 	}
 }
 
-func HandleBase64Encoding(p *widgets.Paragraph) {
+func HandleBase64Encoding(uiEvents <-chan ui.Event) {
+	p := createParagraph(" Enter text")
 	ui.Render(p)
-	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
 		if e.ID == "<Enter>" {
@@ -53,9 +61,9 @@ func HandleBase64Encoding(p *widgets.Paragraph) {
 	}
 }
 
-func HandleBase64Decoding(p *widgets.Paragraph) {
+func HandleBase64Decoding(uiEvents <-chan ui.Event) {
+	p := createParagraph(" Enter Encoded Base64")
 	ui.Render(p)
-	uiEvents := ui.PollEvents()
 	for {
 		e := <-uiEvents
 		if e.ID == "<Enter>" {
@@ -78,9 +86,8 @@ func HandleBase64Decoding(p *widgets.Paragraph) {
 	}
 }
 
-func HandleJsonFormatter(p *widgets.Paragraph) {
-	ui.Render(p)
-	uiEvents := ui.PollEvents()
+func HandleJsonFormatter(uiEvents <-chan ui.Event) {
+	p := createParagraph(" Enter JSON")
 	for {
 		e := <-uiEvents
 		if e.ID == "<Enter>" {
